@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1F5C3A">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Jurnal Proteksi Tanaman</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F6F2; --surface:#FFFFFF; --ink:#14221B; --muted:#55645B; --line:#D3DDD5;
+  --accent:#1F5C3A; --on-accent:#FFFFFF; --leaf:#C9D84A;
+  --good:#1F7A46; --ok:#3C6E8F; --warn:#9A6700; --bad:#B3261E;
+  --serif:"Literata",Georgia,"Times New Roman",serif;
+  --sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  box-sizing:border-box;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1813; --surface:#16221B; --ink:#E7EFE9; --muted:#9DB0A4; --line:#2A3A2F;
+    --accent:#6CC795; --on-accent:#0F1813;
+    --good:#5FC58A; --ok:#7DB3D6; --warn:#E0B04A; --bad:#F08A80;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 120px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.5 var(--sans);
+  padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+header.top{padding:20px 0 10px;display:flex;gap:12px;align-items:flex-start;justify-content:space-between}
+h1{font:600 24px/1.2 var(--serif);margin:0 0 4px}
+.sub{margin:0;color:var(--muted);font-size:14px}
+#install{display:none;flex:none;border:1px solid var(--accent);background:transparent;color:var(--accent);
+  border-radius:8px;padding:8px 12px;font:500 14px var(--sans);cursor:pointer}
+.sticky{position:sticky;top:0;z-index:5;background:var(--paper);padding:8px 0 10px;border-bottom:1px solid var(--line)}
+form.s{display:flex;gap:8px}
+input[type=search],input[type=number],select{font:400 16px var(--sans);color:var(--ink);background:var(--surface);
+  border:1px solid var(--line);border-radius:8px;padding:11px 12px;min-width:0}
+input[type=search]{flex:1}
+button.go{flex:none;background:var(--accent);color:var(--on-accent);border:0;border-radius:8px;padding:0 18px;font:600 16px var(--sans);cursor:pointer}
+button.go:disabled{opacity:.6}
+:focus-visible{outline:3px solid var(--ok);outline-offset:2px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px;font:400 14px var(--sans);cursor:pointer}
+.chip:active{background:var(--line)}
+details.f{margin:10px 0 0}
+details.f summary{cursor:pointer;color:var(--muted);font-size:14px;padding:4px 0}
+.fgrid{display:grid;gap:10px;padding:10px 0 4px}
+.fgrid label{display:flex;gap:10px;align-items:center;font-size:15px}
+.fgrid .row{display:flex;gap:10px;flex-wrap:wrap}
+.fgrid .row label{flex:1 1 150px;flex-direction:column;align-items:stretch;gap:4px;font-size:14px;color:var(--muted)}
+input[type=checkbox]{width:20px;height:20px;accent-color:var(--accent);flex:none}
+nav.tabs{display:flex;gap:4px;margin:14px 0 4px}
+nav.tabs button{background:transparent;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:8px 10px;font:500 15px var(--sans);cursor:pointer}
+nav.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
+.count{color:var(--muted);font-size:14px;margin:8px 0}
+.empty{color:var(--muted);padding:24px 0}
+.empty p{margin:0 0 10px}
+.err{background:var(--surface);border:1px solid var(--bad);color:var(--bad);border-radius:8px;padding:10px 12px;margin:10px 0;font-size:14px}
+article.res{--rail:var(--line);border-left:6px solid var(--rail);padding:14px 0 14px 14px;border-bottom:1px solid var(--line)}
+article.res.good{--rail:var(--good)} article.res.ok{--rail:var(--ok)}
+article.res.warn{--rail:var(--warn)} article.res.bad{--rail:var(--bad)}
+article.res h3{font:600 18px/1.3 var(--serif);margin:0 0 6px}
+article.res h3 a{color:inherit;text-decoration:none}
+article.res h3 a:hover{text-decoration:underline}
+.meta{margin:0 0 6px;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:2px 14px}
+.meta i{font-family:var(--serif)}
+.trust{margin:0 0 8px;font-size:14px}
+.trust b{margin-right:6px}
+.good .trust b{color:var(--good)} .ok .trust b{color:var(--ok)} .warn .trust b{color:var(--warn)} .bad .trust b{color:var(--bad)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px;padding:0;font-size:12.5px;color:var(--muted)}
+.tags span{border:1px solid var(--line);border-radius:6px;padding:2px 7px;overflow-wrap:anywhere}
+.acts{display:flex;flex-wrap:wrap;gap:6px}
+.acts button,.acts a{font:500 14px var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--line);
+  border-radius:8px;padding:7px 11px;cursor:pointer;text-decoration:none}
+.acts .on{border-color:var(--accent);color:var(--accent)}
+.box{margin-top:10px;font:400 15px/1.6 var(--serif);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.box.v{font:400 14px/1.5 var(--sans)}
+.box[hidden]{display:none}
+button.more-btn{display:block;margin:18px auto;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:11px 18px;font:500 15px var(--sans);cursor:pointer}
+.spin{color:var(--muted);padding:18px 0;text-align:center}
+footer{color:var(--muted);font-size:13px;padding:22px 0 28px}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);transform:translateX(-50%);background:var(--ink);color:var(--paper);
+  padding:9px 14px;border-radius:8px;font-size:14px;z-index:20}
+.toast[hidden]{display:none}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Jurnal Proteksi Tanaman</h1>
+      <p class="sub">Cari artikel ilmiah pertanian, lengkap dengan penanda validitas.</p>
+    </div>
+    <button id="install" type="button">Pasang</button>
+  </header>
+
+  <div class="sticky">
+    <form class="s" id="sf" role="search">
+      <input id="q" type="search" placeholder="Contoh: wereng cokelat padi" autocomplete="off" enterkeyhint="search" aria-label="Kata kunci pencarian">
+      <button class="go" id="go" type="submit">Cari</button>
+    </form>
+    <div class="chips" id="chips" aria-label="Topik cepat"></div>
+    <details class="f">
+      <summary>Saring hasil</summary>
+      <div class="fgrid">
+        <label><input type="checkbox" id="f-field"> Batasi ke bidang pertanian dan biologi</label>
+        <label><input type="checkbox" id="f-hide"> Sembunyikan artikel yang ditarik</label>
+        <label><input type="checkbox" id="f-oa"> Hanya open access</label>
+        <label><input type="checkbox" id="f-nopre"> Sembunyikan preprint</label>
+        <label><input type="checkbox" id="f-cr"> Tambahkan hasil Crossref (lebih luas, lebih banyak yang tidak relevan)</label>
+        <div class="row">
+          <label>Terbit sejak tahun <input type="number" id="f-from" inputmode="numeric" min="1900" max="2100" placeholder="2020"></label>
+          <label>Urutkan
+            <select id="f-sort">
+              <option value="relevance">Paling relevan</option>
+              <option value="cited">Paling banyak disitasi</option>
+              <option value="new">Paling baru</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="t-cari" aria-selected="true" type="button">Hasil</button>
+    <button role="tab" id="t-simpan" aria-selected="false" type="button">Tersimpan</button>
+  </nav>
+
+  <main id="out" aria-live="polite"></main>
+
+  <footer>
+    Data dari OpenAlex dan Crossref. Penanda di sini membantu menyaring, bukan jaminan mutu. Periksa jurnalnya sebelum dikutip.
+    Untuk jurnal berbayar, hanya metadata dan abstrak yang tersedia.
+  </footer>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
+const store = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+
+const PRESETS = [
+  ['Hama dan serangga', 'insect pest management'],
+  ['Penyakit tanaman', 'plant disease pathogen'],
+  ['Gulma dan herbisida', 'weed management herbicide'],
+  ['Agen hayati', 'biological control agent'],
+  ['Pengendalian terpadu', 'integrated pest management'],
+  ['Biopestisida', 'biopesticide'],
+  ['Resistensi pestisida', 'pesticide resistance'],
+  ['Virus tanaman', 'plant virus']
+];
+const SEL = 'id,doi,display_name,publication_year,type,cited_by_count,is_retracted,authorships,primary_location,best_oa_location,open_access,abstract_inverted_index';
+const PAGE = 20;
+
+let st = { q: '', page: 1, items: [], total: 0, busy: false, tab: 'cari', more: false, err: '', done: false };
+let saved = load('jt-saved', {});
+const prefs = Object.assign({ field: true, hide: true, oa: false, nopre: false, cr: false, from: '', sort: 'relevance' }, load('jt-prefs', {}));
+
+const key = r => r.doi || r.id;
+const find = k => st.items.find(x => key(x) === k) || saved[k];
+
+function abstractText(inv) {
+  if (!inv) return '';
+  const a = [];
+  for (const [w, pos] of Object.entries(inv)) for (const p of pos) a[p] = w;
+  return a.join(' ');
+}
+
+function normOA(w) {
+  const src = (w.primary_location && w.primary_location.source) || {};
+  const doi = w.doi ? w.doi.replace('https://doi.org/', '').toLowerCase() : '';
+  return {
+    id: w.id, doi,
+    title: w.display_name || '(tanpa judul)',
+    year: w.publication_year, type: w.type, cites: w.cited_by_count || 0,
+    retracted: !!w.is_retracted,
+    authors: (w.authorships || []).map(a => a.author && a.author.display_name).filter(Boolean),
+    venue: src.display_name || '', venueType: src.type || '', doaj: !!src.is_in_doaj,
+    oaUrl: (w.best_oa_location && (w.best_oa_location.pdf_url || w.best_oa_location.landing_page_url)) || (w.open_access && w.open_access.oa_url) || '',
+    landing: (w.primary_location && w.primary_location.landing_page_url) || (doi ? 'https://doi.org/' + doi : ''),
+    abstract: abstractText(w.abstract_inverted_index), src: 'OpenAlex'
+  };
+}
+
+function normCR(w) {
+  const doi = (w.DOI || '').toLowerCase();
+  const t = ((w.title || [])[0] || '(tanpa judul)').replace(/<[^>]+>/g, '');
+  return {
+    id: 'cr:' + doi, doi, title: t,
+    year: w.issued && w.issued['date-parts'] && w.issued['date-parts'][0] && w.issued['date-parts'][0][0],
+    type: 'article', cites: w['is-referenced-by-count'] || 0,
+    retracted: /^(retraction|retracted|withdrawn)/i.test(t),
+    authors: (w.author || []).map(a => [a.given, a.family].filter(Boolean).join(' ')).filter(Boolean),
+    venue: (w['container-title'] || [])[0] || '', venueType: 'journal', doaj: false, oaUrl: '',
+    landing: w.URL || ('https://doi.org/' + doi),
+    abstract: (w.abstract || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(), src: 'Crossref'
+  };
+}
+
+function trust(r) {
+  if (r.retracted) return { k: 'bad', l: 'Ditarik', t: 'Artikel ini ditarik atau berupa pemberitahuan penarikan. Jangan dijadikan rujukan.' };
+  if (r.type === 'preprint' || r.venueType === 'repository') return { k: 'warn', l: 'Hati-hati', t: 'Preprint atau arsip repositori, belum tentu lolos peer review.' };
+  if (!r.doi) return { k: 'warn', l: 'Hati-hati', t: 'Tidak ada DOI, jadi sulit diverifikasi.' };
+  if (r.doaj) return { k: 'good', l: 'Terverifikasi', t: 'Ber-DOI, terbit di jurnal terdaftar DOAJ, tidak ditandai ditarik.' };
+  return { k: 'ok', l: 'Ber-DOI', t: 'Terbit di jurnal dan tidak ditandai ditarik. Status DOAJ belum diketahui.' };
+}
+
+async function openAlex(q, page) {
+  const f = [];
+  if (prefs.field) f.push('primary_topic.field.id:11');
+  if (prefs.hide) f.push('is_retracted:false');
+  if (prefs.oa) f.push('open_access.is_oa:true');
+  if (prefs.from) f.push('from_publication_date:' + prefs.from + '-01-01');
+  if (prefs.nopre) f.push('type:article|review');
+  const p = new URLSearchParams({ search: q, 'per-page': String(PAGE), page: String(page), select: SEL });
+  if (f.length) p.set('filter', f.join(','));
+  if (prefs.sort === 'cited') p.set('sort', 'cited_by_count:desc');
+  if (prefs.sort === 'new') p.set('sort', 'publication_date:desc');
+  const r = await fetch('https://api.openalex.org/works?' + p);
+  if (!r.ok) throw new Error('OpenAlex ' + r.status);
+  const j = await r.json();
+  return { items: (j.results || []).map(normOA), total: (j.meta && j.meta.count) || 0 };
+}
+
+async function crossref(q, page) {
+  const p = new URLSearchParams({
+    'query.bibliographic': q, rows: String(PAGE), offset: String((page - 1) * PAGE),
+    select: 'DOI,title,author,issued,container-title,is-referenced-by-count,URL,abstract',
+    filter: 'type:journal-article' + (prefs.from ? ',from-pub-date:' + prefs.from : '')
+  });
+  if (prefs.sort === 'cited') { p.set('sort', 'is-referenced-by-count'); p.set('order', 'desc'); }
+  if (prefs.sort === 'new') { p.set('sort', 'issued'); p.set('order', 'desc'); }
+  const r = await fetch('https://api.crossref.org/works?' + p);
+  if (!r.ok) throw new Error('Crossref ' + r.status);
+  const j = await r.json();
+  return { items: ((j.message && j.message.items) || []).map(normCR), total: 0 };
+}
+
+async function search(reset) {
+  if (st.busy) return;
+  const q = $('#q').value.trim();
+  if (reset && !q) return;
+  if (reset) { st.page = 1; st.items = []; st.total = 0; st.q = q; st.done = false; } else st.page++;
+  st.tab = 'cari'; st.busy = true; st.err = ''; render();
+  const jobs = [openAlex(st.q, st.page)];
+  if (prefs.cr) jobs.push(crossref(st.q, st.page));
+  const res = await Promise.allSettled(jobs);
+  let fresh = [];
+  res.forEach((r, i) => {
+    if (r.status === 'fulfilled') { fresh = fresh.concat(r.value.items); if (i === 0) st.total = r.value.total; }
+    else st.err += (i === 0 ? 'OpenAlex' : 'Crossref') + ' tidak merespons. ';
+  });
+  const seen = new Set(st.items.map(key));
+  fresh.forEach(x => { const k = key(x); if (k && !seen.has(k)) { seen.add(k); st.items.push(x); } });
+  if (prefs.hide) st.items = st.items.filter(x => !x.retracted);
+  st.more = res[0].status === 'fulfilled' && res[0].value.items.length === PAGE;
+  st.done = true; st.busy = false; render();
+}
+
+function citeText(r) {
+  const a = r.authors.length ? r.authors.slice(0, 6).join(', ') + (r.authors.length > 6 ? ', dkk.' : '') : 'Anonim';
+  return a + ' (' + (r.year || 't.t.') + '). ' + r.title + '. ' + (r.venue ? r.venue + '. ' : '') + (r.doi ? 'https://doi.org/' + r.doi : r.landing);
+}
+
+function card(r) {
+  const t = trust(r), k = key(r);
+  const au = r.authors.length ? r.authors.slice(0, 3).join(', ') + (r.authors.length > 3 ? ' dkk.' : '') : 'Penulis tidak tercantum';
+  const isSaved = !!saved[k];
+  return `<article class="res ${t.k}" data-k="${esc(k)}">
+    <h3><a href="${esc(r.landing)}" target="_blank" rel="noopener">${esc(r.title)}</a></h3>
+    <p class="meta"><span>${esc(au)}</span><span>${esc(r.year || 'tahun tidak diketahui')}</span>${r.venue ? `<i>${esc(r.venue)}</i>` : ''}</p>
+    <p class="trust"><b>${t.l}</b>${esc(t.t)}</p>
+    <p class="tags">${r.doaj ? '<span>Jurnal DOAJ</span>' : ''}${r.oaUrl ? '<span>Open access</span>' : ''}<span>${r.cites} sitasi</span>${r.doi ? `<span>DOI ${esc(r.doi)}</span>` : ''}<span>${esc(r.src)}</span></p>
+    <div class="acts">
+      <button type="button" data-a="abs">Abstrak</button>
+      ${r.oaUrl ? `<a href="${esc(r.oaUrl)}" target="_blank" rel="noopener">Baca gratis</a>` : ''}
+      ${r.doi ? '<button type="button" data-a="doi">Cek DOI</button>' : ''}
+      <button type="button" data-a="cite">Salin sitasi</button>
+      <button type="button" data-a="save" class="${isSaved ? 'on' : ''}">${isSaved ? 'Tersimpan' : 'Simpan'}</button>
+    </div>
+    <div class="box" data-box="abs" hidden></div>
+    <div class="box v" data-box="doi" hidden></div>
+  </article>`;
+}
+
+function render() {
+  const out = $('#out');
+  $('#go').disabled = st.busy;
+  $('#t-cari').setAttribute('aria-selected', st.tab === 'cari');
+  $('#t-simpan').setAttribute('aria-selected', st.tab === 'simpan');
+  $('#t-simpan').textContent = 'Tersimpan (' + Object.keys(saved).length + ')';
+  let h = '';
+  if (st.tab === 'simpan') {
+    const list = Object.values(saved);
+    h = list.length ? list.map(card).join('') : '<div class="empty"><p>Belum ada artikel tersimpan.</p><p>Tekan Simpan pada artikel yang ingin kamu baca lagi. Daftar ini tersimpan di HP dan tetap ada saat offline.</p></div>';
+    out.innerHTML = h; return;
+  }
+  if (st.err) h += `<div class="err">${esc(st.err)}Cek koneksi internet lalu coba lagi.</div>`;
+  if (!st.done && !st.busy) {
+    h += '<div class="empty"><p>Ketik topik atau pilih salah satu topik cepat di atas. Pencarian bisa memakai bahasa Indonesia atau Inggris, tetapi sebagian besar jurnal ditulis dalam bahasa Inggris.</p><p>Garis di sisi kiri tiap artikel menunjukkan tingkat kepercayaan: hijau terverifikasi, biru ber-DOI, kuning hati-hati, merah ditarik.</p></div>';
+  } else {
+    if (st.done && !st.items.length && !st.busy) h += '<div class="empty"><p>Tidak ada hasil. Coba kata kunci lebih umum, atau matikan batasan bidang di Saring hasil.</p></div>';
+    if (st.items.length) h += `<p class="count">${st.total ? st.total.toLocaleString('id-ID') + ' artikel ditemukan, ' : ''}${st.items.length} ditampilkan</p>` + st.items.map(card).join('');
+    if (st.busy) h += '<p class="spin">Mencari...</p>';
+    else if (st.more) h += '<button type="button" class="more-btn" id="more">Muat lebih banyak</button>';
+  }
+  out.innerHTML = h;
+}
+
+function toast(m) {
+  const t = $('#toast'); t.textContent = m; t.hidden = false;
+  clearTimeout(toast.id); toast.id = setTimeout(() => { t.hidden = true; }, 2200);
+}
+
+async function verify(r, box) {
+  box.hidden = false; box.textContent = 'Memeriksa DOI di Crossref...';
+  try {
+    const res = await fetch('https://api.crossref.org/works/' + encodeURIComponent(r.doi));
+    if (res.status === 404) { box.innerHTML = '<b>DOI tidak ditemukan di Crossref.</b> Bisa jadi terdaftar di agen DOI lain, atau DOI-nya keliru. Coba buka doi.org untuk memastikan.'; return; }
+    if (!res.ok) throw new Error(res.status);
+    const m = (await res.json()).message;
+    const upd = m['updated-by'] || [];
+    const bad = upd.filter(u => /retraction|withdrawal|removal/i.test(u.type || ''));
+    const concern = upd.filter(u => /concern/i.test(u.type || ''));
+    let s = `DOI terdaftar di Crossref. Penerbit: ${esc(m.publisher || 'tidak disebutkan')}.`;
+    if (bad.length) s += ' <b style="color:var(--bad)">Ada catatan penarikan resmi untuk artikel ini.</b>';
+    else if (concern.length) s += ' <b style="color:var(--warn)">Ada pernyataan kekhawatiran (expression of concern) dari penerbit.</b>';
+    else s += ' Tidak ada catatan penarikan di Crossref.';
+    box.innerHTML = s;
+  } catch (e) { box.textContent = 'Gagal memeriksa. Cek koneksi internet lalu coba lagi.'; }
+}
+
+async function copy(text) {
+  try { await navigator.clipboard.writeText(text); toast('Sitasi disalin'); }
+  catch (e) { window.prompt('Salin sitasi ini:', text); }
+}
+
+$('#out').addEventListener('click', e => {
+  if (e.target.id === 'more') { search(false); return; }
+  const b = e.target.closest('button[data-a]'); if (!b) return;
+  const art = b.closest('article'), k = art.dataset.k, r = find(k); if (!r) return;
+  const a = b.dataset.a;
+  if (a === 'abs') {
+    const box = art.querySelector('[data-box=abs]');
+    box.textContent = r.abstract || 'Abstrak tidak tersedia dari sumber ini. Buka artikelnya untuk membaca abstrak.';
+    box.hidden = !box.hidden;
+  } else if (a === 'doi') verify(r, art.querySelector('[data-box=doi]'));
+  else if (a === 'cite') copy(citeText(r));
+  else if (a === 'save') {
+    if (saved[k]) { delete saved[k]; toast('Dihapus dari tersimpan'); } else { saved[k] = r; toast('Tersimpan'); }
+    store('jt-saved', saved);
+    if (st.tab === 'simpan') render();
+    else { b.classList.toggle('on', !!saved[k]); b.textContent = saved[k] ? 'Tersimpan' : 'Simpan'; $('#t-simpan').textContent = 'Tersimpan (' + Object.keys(saved).length + ')'; }
+  }
+});
+
+$('#sf').addEventListener('submit', e => { e.preventDefault(); search(true); });
+$('#t-cari').addEventListener('click', () => { st.tab = 'cari'; render(); });
+$('#t-simpan').addEventListener('click', () => { st.tab = 'simpan'; render(); });
+
+$('#chips').innerHTML = PRESETS.map((p, i) => `<button type="button" class="chip" data-i="${i}">${esc(p[0])}</button>`).join('');
+$('#chips').addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  $('#q').value = PRESETS[+b.dataset.i][1]; search(true);
+});
+
+const bind = (id, name, isBool) => {
+  const el = $(id);
+  if (isBool) el.checked = !!prefs[name]; else el.value = prefs[name];
+  el.addEventListener('change', () => {
+    prefs[name] = isBool ? el.checked : el.value.trim();
+    store('jt-prefs', prefs);
+    if (st.q) { $('#q').value = $('#q').value || st.q; search(true); }
+  });
+};
+bind('#f-field', 'field', true); bind('#f-hide', 'hide', true); bind('#f-oa', 'oa', true);
+bind('#f-nopre', 'nopre', true); bind('#f-cr', 'cr', true);
+bind('#f-from', 'from', false); bind('#f-sort', 'sort', false);
+
+let deferred;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferred = e; $('#install').style.display = 'block'; });
+$('#install').addEventListener('click', async () => {
+  if (!deferred) return; deferred.prompt(); await deferred.userChoice; deferred = null; $('#install').style.display = 'none';
+});
+
+if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+render();
+})();
+</script>
+</body>
+</html>
