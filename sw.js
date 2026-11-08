@@ -1,4 +1,4 @@
-const C = 'jurnal-tani-v1';
+const C = 'jurnal-tani-v2';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(C).then(c => c.addAll(SHELL)));

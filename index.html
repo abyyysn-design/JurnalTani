@@ -3,174 +3,335 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1F5C3A">
+<meta name="theme-color" content="#1B5E3B">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Jurnal Proteksi Tanaman</title>
+<title>Jurnal Tani</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F3F6F2; --surface:#FFFFFF; --ink:#14221B; --muted:#55645B; --line:#D3DDD5;
-  --accent:#1F5C3A; --on-accent:#FFFFFF; --leaf:#C9D84A;
-  --good:#1F7A46; --ok:#3C6E8F; --warn:#9A6700; --bad:#B3261E;
+  --paper:#F2F5F3; --surface:#FFFFFF; --ink:#10231A; --muted:#566860; --line:#D5DFD8; --mint:#E3EFE7;
+  --accent:#1B5E3B; --on-accent:#FFFFFF; --leaf:#C8DB4B;
+  --good:#1F7A46; --ok:#34698C; --warn:#94620A; --bad:#B3261E;
+  --sans:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --serif:"Literata",Georgia,"Times New Roman",serif;
-  --sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   box-sizing:border-box;
 }
 @media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --paper:#0F1813; --surface:#16221B; --ink:#E7EFE9; --muted:#9DB0A4; --line:#2A3A2F;
-    --accent:#6CC795; --on-accent:#0F1813;
+  :root{
+    --paper:#0E1712; --surface:#16231C; --ink:#E8F0EA; --muted:#9BAFA3; --line:#293A2F; --mint:#1B2C22;
+    --accent:#6CC795; --on-accent:#0E1712;
     --good:#5FC58A; --ok:#7DB3D6; --warn:#E0B04A; --bad:#F08A80;
   }
 }
 *,*::before,*::after{box-sizing:inherit}
-html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 120px);-webkit-text-size-adjust:100%}
+[hidden]{display:none!important}
+html{scroll-padding-top:96px;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.5 var(--sans);
-  padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
-.wrap{max-width:760px;margin:0 auto;padding:0 16px}
-header.top{padding:20px 0 10px;display:flex;gap:12px;align-items:flex-start;justify-content:space-between}
-h1{font:600 24px/1.2 var(--serif);margin:0 0 4px}
-.sub{margin:0;color:var(--muted);font-size:14px}
-#install{display:none;flex:none;border:1px solid var(--accent);background:transparent;color:var(--accent);
-  border-radius:8px;padding:8px 12px;font:500 14px var(--sans);cursor:pointer}
-.sticky{position:sticky;top:0;z-index:5;background:var(--paper);padding:8px 0 10px;border-bottom:1px solid var(--line)}
-form.s{display:flex;gap:8px}
-input[type=search],input[type=number],select{font:400 16px var(--sans);color:var(--ink);background:var(--surface);
-  border:1px solid var(--line);border-radius:8px;padding:11px 12px;min-width:0}
-input[type=search]{flex:1}
-button.go{flex:none;background:var(--accent);color:var(--on-accent);border:0;border-radius:8px;padding:0 18px;font:600 16px var(--sans);cursor:pointer}
-button.go:disabled{opacity:.6}
+  padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) 0 env(safe-area-inset-left,0px)}
+button{font-family:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--ok);outline-offset:2px}
-.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}
-.chips::-webkit-scrollbar{display:none}
-.chip{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px;font:400 14px var(--sans);cursor:pointer}
-.chip:active{background:var(--line)}
-details.f{margin:10px 0 0}
-details.f summary{cursor:pointer;color:var(--muted);font-size:14px;padding:4px 0}
-.fgrid{display:grid;gap:10px;padding:10px 0 4px}
-.fgrid label{display:flex;gap:10px;align-items:center;font-size:15px}
-.fgrid .row{display:flex;gap:10px;flex-wrap:wrap}
-.fgrid .row label{flex:1 1 150px;flex-direction:column;align-items:stretch;gap:4px;font-size:14px;color:var(--muted)}
-input[type=checkbox]{width:20px;height:20px;accent-color:var(--accent);flex:none}
-nav.tabs{display:flex;gap:4px;margin:14px 0 4px}
-nav.tabs button{background:transparent;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:8px 10px;font:500 15px var(--sans);cursor:pointer}
-nav.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
-.count{color:var(--muted);font-size:14px;margin:8px 0}
-.empty{color:var(--muted);padding:24px 0}
-.empty p{margin:0 0 10px}
-.err{background:var(--surface);border:1px solid var(--bad);color:var(--bad);border-radius:8px;padding:10px 12px;margin:10px 0;font-size:14px}
-article.res{--rail:var(--line);border-left:6px solid var(--rail);padding:14px 0 14px 14px;border-bottom:1px solid var(--line)}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px 110px}
+
+header.top{display:flex;align-items:center;justify-content:space-between;padding:14px 0 6px}
+.brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;color:var(--accent)}
+#install{display:none;border:1px solid var(--accent);background:transparent;color:var(--accent);border-radius:999px;padding:6px 14px;font-weight:500;font-size:14px;cursor:pointer}
+
+.searchbar{position:sticky;top:0;z-index:5;background:var(--paper);padding:8px 0 10px}
+form.s{display:flex;gap:8px}
+.field{position:relative;flex:1;min-width:0}
+.field svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.field input{width:100%;height:52px;font:400 16px var(--sans);color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:999px;padding:0 44px 0 44px}
+.field input:focus{border-color:var(--accent)}
+#clr{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:36px;height:36px;border:0;background:transparent;color:var(--muted);font-size:22px;cursor:pointer;border-radius:50%}
+button.go{flex:none;height:52px;background:var(--accent);color:var(--on-accent);border:0;border-radius:999px;padding:0 22px;font-weight:700;font-size:16px;cursor:pointer}
+button.go:disabled{opacity:.6}
+
+.hero{padding:22px 0 6px}
+.hero h1{font:700 clamp(28px,8vw,40px)/1.08 var(--sans);letter-spacing:-.02em;margin:0 0 10px}
+.lede{margin:0 0 14px;color:var(--muted);font-size:16px;max-width:34em}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;list-style:none;margin:0;padding:0;font-size:14px}
+.legend li{display:flex;align-items:center;gap:7px}
+.legend i{display:block;width:5px;height:16px;border-radius:3px}
+h2.sec{display:flex;align-items:center;justify-content:space-between;font:700 17px var(--sans);margin:26px 0 10px}
+h2.sec button{border:0;background:none;color:var(--muted);font-size:14px;font-weight:400;cursor:pointer;padding:4px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{text-align:left;background:var(--mint);border:0;border-radius:16px;padding:14px;cursor:pointer;display:flex;flex-direction:column;gap:2px;min-height:78px}
+.tile:active{filter:brightness(.95)}
+.tile b{font-weight:700;font-size:16px;line-height:1.2}
+.tile span{color:var(--muted);font-size:13.5px;line-height:1.3}
+.hist{display:flex;flex-wrap:wrap;gap:8px}
+.pill{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:14px;cursor:pointer}
+
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0 6px}
+.count{color:var(--muted);font-size:14px}
+.fbtn{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:500;cursor:pointer}
+.sorts{display:flex;gap:6px;margin:0 0 6px;overflow-x:auto;scrollbar-width:none}
+.sorts::-webkit-scrollbar{display:none}
+.sorts button{flex:none;border:0;background:transparent;border-radius:999px;padding:7px 13px;font-size:14px;color:var(--muted);cursor:pointer}
+.sorts button[aria-pressed=true]{background:var(--mint);color:var(--ink);font-weight:700}
+.banner{display:flex;gap:10px;align-items:center;justify-content:space-between;background:var(--mint);border-radius:12px;padding:10px 12px;margin:8px 0;font-size:14px}
+.banner button{flex:none;border:0;background:none;color:var(--accent);font-weight:700;cursor:pointer;padding:4px 6px}
+.err{border:1px solid var(--bad);color:var(--bad);border-radius:12px;padding:10px 12px;margin:10px 0;font-size:14px}
+.empty{color:var(--muted);padding:26px 0}
+.spin{color:var(--muted);padding:20px 0;text-align:center}
+
+article.res{--rail:var(--line);border-left:5px solid var(--rail);padding:14px 0 14px 14px;border-bottom:1px solid var(--line)}
 article.res.good{--rail:var(--good)} article.res.ok{--rail:var(--ok)}
 article.res.warn{--rail:var(--warn)} article.res.bad{--rail:var(--bad)}
-article.res h3{font:600 18px/1.3 var(--serif);margin:0 0 6px}
-article.res h3 a{color:inherit;text-decoration:none}
-article.res h3 a:hover{text-decoration:underline}
-.meta{margin:0 0 6px;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:2px 14px}
+article.res h3{margin:0 0 5px;font:600 18px/1.3 var(--serif)}
+article.res h3 button{all:unset;cursor:pointer;display:block}
+article.res h3 button:focus-visible{outline:3px solid var(--ok);outline-offset:2px}
+.meta{margin:0 0 6px;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:0 12px}
 .meta i{font-family:var(--serif)}
-.trust{margin:0 0 8px;font-size:14px}
-.trust b{margin-right:6px}
-.good .trust b{color:var(--good)} .ok .trust b{color:var(--ok)} .warn .trust b{color:var(--warn)} .bad .trust b{color:var(--bad)}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px;padding:0;font-size:12.5px;color:var(--muted)}
-.tags span{border:1px solid var(--line);border-radius:6px;padding:2px 7px;overflow-wrap:anywhere}
-.acts{display:flex;flex-wrap:wrap;gap:6px}
-.acts button,.acts a{font:500 14px var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--line);
-  border-radius:8px;padding:7px 11px;cursor:pointer;text-decoration:none}
-.acts .on{border-color:var(--accent);color:var(--accent)}
-.box{margin-top:10px;font:400 15px/1.6 var(--serif);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
-.box.v{font:400 14px/1.5 var(--sans)}
-.box[hidden]{display:none}
-button.more-btn{display:block;margin:18px auto;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:11px 18px;font:500 15px var(--sans);cursor:pointer}
-.spin{color:var(--muted);padding:18px 0;text-align:center}
-footer{color:var(--muted);font-size:13px;padding:22px 0 28px}
-.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);transform:translateX(-50%);background:var(--ink);color:var(--paper);
-  padding:9px 14px;border-radius:8px;font-size:14px;z-index:20}
-.toast[hidden]{display:none}
-@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+.status{margin:0 0 10px;font-size:14px;display:flex;flex-wrap:wrap;align-items:center;gap:2px 12px}
+.status b{font-weight:700}
+.good .status b{color:var(--good)} .ok .status b{color:var(--ok)} .warn .status b{color:var(--warn)} .bad .status b{color:var(--bad)}
+.status span{color:var(--muted)}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.acts button,.acts a{font:500 14px var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.acts .on{background:var(--mint);border-color:var(--accent);color:var(--accent)}
+button.more-btn{display:block;margin:20px auto;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:11px 22px;font-weight:500;font-size:15px;cursor:pointer}
+
+nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;background:var(--surface);border-top:1px solid var(--line);padding:6px 8px calc(env(safe-area-inset-bottom,0px) + 6px)}
+nav.bottom button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;border:0;background:none;padding:6px;font-size:13px;color:var(--muted);cursor:pointer;border-radius:12px}
+nav.bottom button[aria-selected=true]{color:var(--accent);font-weight:700}
+
+#scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:30}
+#sheet{position:fixed;left:0;right:0;bottom:0;z-index:31;max-width:640px;margin:0 auto;max-height:88vh;overflow:auto;background:var(--surface);border-radius:22px 22px 0 0;padding:10px 18px calc(env(safe-area-inset-bottom,0px) + 20px);transform:translateY(100%);transition:transform .18s ease-out;overscroll-behavior:contain}
+#sheet.up{transform:translateY(0)}
+.grab{width:40px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 10px}
+.sh-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.sh-h h2{margin:0;font:700 20px var(--sans)}
+.x{border:0;background:none;color:var(--muted);font-size:15px;cursor:pointer;padding:6px}
+#sheet h4{font:700 15px var(--sans);margin:18px 0 6px}
+.dt{font:600 20px/1.3 var(--serif);margin:4px 0 6px}
+.tr{border-left:5px solid var(--rail);padding:6px 0 6px 12px;margin:10px 0;font-size:14.5px;display:flex;flex-direction:column;gap:2px}
+.tr.good{--rail:var(--good)} .tr.ok{--rail:var(--ok)} .tr.warn{--rail:var(--warn)} .tr.bad{--rail:var(--bad)}
+.tr b{color:var(--rail)}
+.abs{font:400 15.5px/1.65 var(--serif);margin:0}
+.muted{color:var(--muted);font-size:14px}
+.box{margin-top:10px;background:var(--paper);border-radius:12px;padding:10px 12px;font-size:14.5px}
+.box.cite{font:400 15px/1.6 var(--serif);max-height:42vh;overflow:auto}
+.box.cite p{margin:0 0 10px} .box.cite p:last-child{margin:0}
+.box pre{margin:0;white-space:pre-wrap;word-break:break-word;font:400 13px/1.5 ui-monospace,Menlo,Consolas,monospace}
+.fmts{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:2px 0 6px}
+.fmts::-webkit-scrollbar{display:none}
+.fmts button{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:14px;cursor:pointer}
+.fmts button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.foot{display:flex;gap:8px;margin-top:18px}
+.foot button{flex:1;height:48px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-weight:500;font-size:15px;cursor:pointer}
+.foot button.go{border:0;background:var(--accent);color:var(--on-accent);font-weight:700;padding:0}
+.opt{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px}
+.opt small{display:block;color:var(--muted);font-size:13px}
+.opt select,.opt input[type=number]{font:400 15px var(--sans);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:8px 10px;max-width:48%}
+.opt input[type=number]{width:110px}
+.opt input[type=checkbox]{width:22px;height:22px;accent-color:var(--accent);flex:none}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 84px);transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:999px;font-size:14px;z-index:40;max-width:90vw}
+@media (prefers-reduced-motion:reduce){#sheet{transition:none}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <div>
-      <h1>Jurnal Proteksi Tanaman</h1>
-      <p class="sub">Cari artikel ilmiah pertanian, lengkap dengan penanda validitas.</p>
+    <div class="brand">
+      <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><circle cx="14" cy="14" r="9" fill="none" stroke="currentColor" stroke-width="3"/><path d="M21 21l7 7" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><ellipse cx="14" cy="14" rx="3.2" ry="5.2" fill="var(--leaf)" transform="rotate(35 14 14)"/></svg>
+      Jurnal Tani
     </div>
     <button id="install" type="button">Pasang</button>
   </header>
 
-  <div class="sticky">
+  <div class="searchbar" id="searchbar">
     <form class="s" id="sf" role="search">
-      <input id="q" type="search" placeholder="Contoh: wereng cokelat padi" autocomplete="off" enterkeyhint="search" aria-label="Kata kunci pencarian">
+      <div class="field">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Cari topik, judul, atau tempel DOI" autocomplete="off" enterkeyhint="search" aria-label="Kata kunci pencarian">
+        <button type="button" id="clr" aria-label="Hapus teks" hidden>&times;</button>
+      </div>
       <button class="go" id="go" type="submit">Cari</button>
     </form>
-    <div class="chips" id="chips" aria-label="Topik cepat"></div>
-    <details class="f">
-      <summary>Saring hasil</summary>
-      <div class="fgrid">
-        <label><input type="checkbox" id="f-field"> Batasi ke bidang pertanian dan biologi</label>
-        <label><input type="checkbox" id="f-hide"> Sembunyikan artikel yang ditarik</label>
-        <label><input type="checkbox" id="f-oa"> Hanya open access</label>
-        <label><input type="checkbox" id="f-nopre"> Sembunyikan preprint</label>
-        <label><input type="checkbox" id="f-cr"> Tambahkan hasil Crossref (lebih luas, lebih banyak yang tidak relevan)</label>
-        <div class="row">
-          <label>Terbit sejak tahun <input type="number" id="f-from" inputmode="numeric" min="1900" max="2100" placeholder="2020"></label>
-          <label>Urutkan
-            <select id="f-sort">
-              <option value="relevance">Paling relevan</option>
-              <option value="cited">Paling banyak disitasi</option>
-              <option value="new">Paling baru</option>
-            </select>
-          </label>
-        </div>
-      </div>
-    </details>
   </div>
 
-  <nav class="tabs" role="tablist">
-    <button role="tab" id="t-cari" aria-selected="true" type="button">Hasil</button>
-    <button role="tab" id="t-simpan" aria-selected="false" type="button">Tersimpan</button>
-  </nav>
-
   <main id="out" aria-live="polite"></main>
-
-  <footer>
-    Data dari OpenAlex dan Crossref. Penanda di sini membantu menyaring, bukan jaminan mutu. Periksa jurnalnya sebelum dikutip.
-    Untuk jurnal berbayar, hanya metadata dan abstrak yang tersedia.
-  </footer>
 </div>
+
+<nav class="bottom" aria-label="Menu utama">
+  <button type="button" id="n-cari" data-a="tab-cari" aria-selected="true">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    Cari
+  </button>
+  <button type="button" id="n-simpan" data-a="tab-simpan" aria-selected="false">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+    <span id="n-simpan-t">Tersimpan</span>
+  </button>
+</nav>
+
+<div id="scrim" hidden data-a="close"></div>
+<section id="sheet" role="dialog" aria-modal="true" hidden></section>
 <div class="toast" id="toast" hidden></div>
 
 <script>
 (() => {
 'use strict';
 const $ = (s, r = document) => r.querySelector(s);
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const load = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } };
 const store = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
 
-const PRESETS = [
-  ['Hama dan serangga', 'insect pest management'],
-  ['Penyakit tanaman', 'plant disease pathogen'],
-  ['Gulma dan herbisida', 'weed management herbicide'],
-  ['Agen hayati', 'biological control agent'],
-  ['Pengendalian terpadu', 'integrated pest management'],
-  ['Biopestisida', 'biopesticide'],
-  ['Resistensi pestisida', 'pesticide resistance'],
-  ['Virus tanaman', 'plant virus']
-];
-const SEL = 'id,doi,display_name,publication_year,type,cited_by_count,is_retracted,authorships,primary_location,best_oa_location,open_access,abstract_inverted_index';
-const PAGE = 20;
+/*CITE-START*/
+const PART = new Set(['van','von','de','del','della','da','di','bin','binti','al','el','le','la','dos','der','den','ter']);
+function parseName(n) {
+  const t = String(n || '').trim().split(/\s+/).filter(Boolean);
+  if (t.length < 2) return { f: t[0] || '', g: '' };
+  let i = t.length - 1;
+  while (i > 1 && PART.has(t[i - 1].toLowerCase())) i--;
+  return { f: t.slice(i).join(' '), g: t.slice(0, i).join(' ') };
+}
+const ini = (g, sp, dot) => String(g || '').split(/[\s-]+/).filter(Boolean).map(x => x[0].toUpperCase() + (dot ? '.' : '')).join(sp);
+const endp = s => /[.?!]$/.test(s) ? s : s + '.';
+const strip = s => s.replace(/\.\s*$/, '');
+const linkOf = r => r.doi ? 'https://doi.org/' + r.doi : (r.landing || '');
+const yr = r => r.year || 'n.d.';
+function build(o) {
+  let h = '', p = '';
+  o.forEach(x => { if (typeof x === 'string') { h += esc(x); p += x; } else { h += '<i>' + esc(x.i) + '</i>'; p += x.i; } });
+  return { html: h, plain: p };
+}
+function fApa(r) {
+  const au = r.au, nm = x => x.f + (x.g ? ', ' + ini(x.g, ' ', true) : '');
+  let who = '';
+  if (au.length > 20) who = au.slice(0, 19).map(nm).join(', ') + ', . . . ' + nm(au[au.length - 1]);
+  else if (au.length === 1) who = nm(au[0]);
+  else if (au.length > 1) { const a = au.map(nm); who = a.slice(0, -1).join(', ') + (a.length > 2 ? ',' : '') + ' & ' + a[a.length - 1]; }
+  const o = [];
+  if (who) o.push(who + (/\.$/.test(who) ? '' : '.') + ' (' + yr(r) + '). ', endp(r.title) + ' ');
+  else o.push(endp(r.title) + ' (' + yr(r) + '). ');
+  if (r.venue) {
+    o.push({ i: r.venue });
+    if (r.vol) { o.push(', ', { i: r.vol }); if (r.issue) o.push('(' + r.issue + ')'); }
+    if (r.pages) o.push(', ' + r.pages);
+    o.push('. ');
+  }
+  o.push(linkOf(r));
+  return build(o);
+}
+function fHarvard(r) {
+  const a = r.au.map(x => x.f + (x.g ? ', ' + ini(x.g, '', true) : ''));
+  const who = a.length > 3 ? a[0] + ' et al.' : a.length > 1 ? a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1] : (a[0] || 'Anon.');
+  const o = [who + ' (' + yr(r) + ') \u2018' + strip(r.title) + '\u2019'];
+  if (r.venue) {
+    o.push(', ', { i: r.venue });
+    if (r.vol) o.push(', ' + r.vol + (r.issue ? '(' + r.issue + ')' : ''));
+    if (r.pages) o.push(', pp. ' + r.pages);
+  }
+  o.push('. Available at: ' + linkOf(r) + '.');
+  return build(o);
+}
+function fIeee(r, n) {
+  const a = r.au.map(x => (x.g ? ini(x.g, ' ', true) + ' ' : '') + x.f);
+  const who = a.length > 6 ? a[0] + ' et al.' : a.length > 2 ? a.slice(0, -1).join(', ') + ', and ' + a[a.length - 1] : a.length === 2 ? a[0] + ' and ' + a[1] : (a[0] || '');
+  const o = [];
+  if (n) o.push('[' + n + '] ');
+  o.push((who ? who + ', ' : '') + '\u201C' + strip(r.title) + ',\u201D ');
+  const bits = [];
+  if (r.vol) bits.push('vol. ' + r.vol);
+  if (r.issue) bits.push('no. ' + r.issue);
+  if (r.pages) bits.push('pp. ' + r.pages);
+  bits.push(yr(r));
+  if (r.doi) bits.push('doi: ' + r.doi);
+  if (r.venue) o.push({ i: r.venue }, ', ');
+  o.push(endp(bits.join(', ')));
+  return build(o);
+}
+function fVan(r) {
+  const a = r.au.slice(0, 6).map(x => x.f + (x.g ? ' ' + ini(x.g, '', false) : ''));
+  const who = a.join(', ') + (r.au.length > 6 ? ', et al' : '');
+  let s = (who ? who + '. ' : '') + endp(r.title) + ' ' + (r.venue ? r.venue + '. ' : '') + yr(r);
+  if (r.vol) s += ';' + r.vol + (r.issue ? '(' + r.issue + ')' : '') + (r.pages ? ':' + r.pages.replace('\u2013', '-') : '');
+  s = endp(s);
+  if (r.doi) s += ' doi:' + r.doi;
+  return build([s]);
+}
+function fMla(r) {
+  const au = r.au, full = au.map(x => x.g ? x.f + ', ' + x.g : x.f);
+  let who = '';
+  if (au.length > 2) who = full[0] + ', et al.';
+  else if (au.length === 2) who = full[0] + ', and ' + (au[1].g ? au[1].g + ' ' : '') + au[1].f;
+  else if (au.length === 1) who = full[0];
+  const o = [];
+  if (who) o.push(who.replace(/\.?$/, '.') + ' ');
+  o.push('\u201C' + endp(r.title) + '\u201D ');
+  const bits = [];
+  if (r.vol) bits.push('vol. ' + r.vol);
+  if (r.issue) bits.push('no. ' + r.issue);
+  bits.push(yr(r));
+  if (r.pages) bits.push('pp. ' + r.pages);
+  if (r.venue) o.push({ i: r.venue }, ', ');
+  o.push(endp(bits.join(', ')) + ' ' + linkOf(r) + '.');
+  return build(o);
+}
+function fBib(r) {
+  const fam = ((r.au[0] && r.au[0].f) || 'anon').normalize('NFD').replace(/[^\w]/g, '').toLowerCase();
+  const w = (r.title.match(/[A-Za-z]{4,}/) || ['x'])[0].toLowerCase();
+  const L = ['@article{' + fam + (r.year || '') + w + ','];
+  const F = (n, v) => { if (v) L.push('  ' + n + ' = {' + String(v).replace(/[{}]/g, '') + '},'); };
+  F('author', r.au.map(x => x.g ? x.f + ', ' + x.g : x.f).join(' and '));
+  L.push('  title = {{' + r.title.replace(/[{}]/g, '') + '}},');
+  F('journal', r.venue); F('year', r.year); F('volume', r.vol); F('number', r.issue);
+  F('pages', r.pages && r.pages.replace(/[\u2013-]+/g, '--')); F('doi', r.doi);
+  L.push('}');
+  return L.join('\n');
+}
+function fRis(r) {
+  const L = ['TY  - JOUR'];
+  r.au.forEach(x => L.push('AU  - ' + (x.g ? x.f + ', ' + x.g : x.f)));
+  L.push('TI  - ' + r.title);
+  if (r.venue) L.push('T2  - ' + r.venue);
+  if (r.year) L.push('PY  - ' + r.year);
+  if (r.vol) L.push('VL  - ' + r.vol);
+  if (r.issue) L.push('IS  - ' + r.issue);
+  if (r.fp) L.push('SP  - ' + r.fp);
+  if (r.lp) L.push('EP  - ' + r.lp);
+  if (r.doi) L.push('DO  - ' + r.doi);
+  L.push('UR  - ' + linkOf(r), 'ER  - ');
+  return L.join('\n');
+}
+function citation(r, fmt, n) {
+  if (fmt === 'bibtex') { const t = fBib(r); return { html: '<pre>' + esc(t) + '</pre>', plain: t, code: true }; }
+  if (fmt === 'ris') { const t = fRis(r); return { html: '<pre>' + esc(t) + '</pre>', plain: t, code: true }; }
+  return ({ apa: fApa, harvard: fHarvard, ieee: fIeee, vancouver: fVan, mla: fMla }[fmt] || fApa)(r, n);
+}
+/*CITE-END*/
 
-let st = { q: '', page: 1, items: [], total: 0, busy: false, tab: 'cari', more: false, err: '', done: false };
-let saved = load('jt-saved', {});
-const prefs = Object.assign({ field: true, hide: true, oa: false, nopre: false, cr: false, from: '', sort: 'relevance' }, load('jt-prefs', {}));
+const FORMATS = [['apa','APA 7'],['harvard','Harvard'],['ieee','IEEE'],['vancouver','Vancouver'],['mla','MLA 9'],['bibtex','BibTeX'],['ris','RIS']];
+const TOPICS = [
+  { l: 'Hama dan serangga', q: 'insect pest management', d: 'Pengendalian hama' },
+  { l: 'Penyakit tanaman', q: 'plant disease pathogen', d: 'Jamur, bakteri, nematoda' },
+  { l: 'Gulma', q: 'weed management herbicide', d: 'Gulma dan herbisida' },
+  { l: 'Agen hayati', q: 'biological control agent', d: 'Musuh alami' },
+  { l: 'Pengendalian terpadu', q: 'integrated pest management', d: 'PHT' },
+  { l: 'Biopestisida', q: 'biopesticide', d: 'Pestisida nabati dan hayati' },
+  { l: 'Resistensi pestisida', q: 'pesticide resistance', d: 'Mekanisme dan pengelolaan' },
+  { l: 'Virus tanaman', q: 'plant virus', d: 'Gejala dan vektor' }
+];
+const SORTS = [['relevance','Relevan'],['new','Terbaru'],['cited','Terbanyak disitasi']];
+const SEL = 'id,doi,display_name,publication_year,type,cited_by_count,is_retracted,authorships,primary_location,best_oa_location,open_access,abstract_inverted_index,biblio';
+const PAGE = 20;
+const DOI_RE = /^\s*(?:https?:\/\/(?:dx\.)?doi\.org\/|doi:\s*)?(10\.\d{4,9}\/\S+)\s*$/i;
+
+let st = { q: '', page: 1, items: [], total: 0, busy: false, tab: 'cari', mode: 'home', more: false, err: '', done: false, special: null, doi: false };
+let saved = load('jt2-saved', {});
+let hist = load('jt2-hist', []);
+let curFmt = load('jt2-fmt', 'apa');
+const prefs = Object.assign({ field: true, hide: true, oa: false, doaj: false, type: 'all', lang: 'all', scope: 'all', from: '', sort: 'relevance', cr: false }, load('jt2-prefs', {}));
+let sheetRec = null, sheetMode = null, sheetOpen = false, curOut = { html: '', plain: '' };
 
 const key = r => r.doi || r.id;
 const find = k => st.items.find(x => key(x) === k) || saved[k];
+const shortId = id => String(id || '').split('/').pop();
 
 function abstractText(inv) {
   if (!inv) return '';
@@ -178,67 +339,80 @@ function abstractText(inv) {
   for (const [w, pos] of Object.entries(inv)) for (const p of pos) a[p] = w;
   return a.join(' ');
 }
-
 function normOA(w) {
   const src = (w.primary_location && w.primary_location.source) || {};
   const doi = w.doi ? w.doi.replace('https://doi.org/', '').toLowerCase() : '';
+  const b = w.biblio || {};
+  const fp = b.first_page || '', lp = b.last_page || '';
+  const au = (w.authorships || []).map(a => a.author && a.author.display_name).filter(Boolean).map(parseName);
   return {
-    id: w.id, doi,
-    title: w.display_name || '(tanpa judul)',
-    year: w.publication_year, type: w.type, cites: w.cited_by_count || 0,
-    retracted: !!w.is_retracted,
-    authors: (w.authorships || []).map(a => a.author && a.author.display_name).filter(Boolean),
+    id: w.id, doi, title: w.display_name || '(tanpa judul)', year: w.publication_year, type: w.type,
+    cites: w.cited_by_count || 0, retracted: !!w.is_retracted, au,
     venue: src.display_name || '', venueType: src.type || '', doaj: !!src.is_in_doaj,
+    vol: b.volume || '', issue: b.issue || '', fp, lp, pages: fp ? (lp && lp !== fp ? fp + '\u2013' + lp : fp) : '',
     oaUrl: (w.best_oa_location && (w.best_oa_location.pdf_url || w.best_oa_location.landing_page_url)) || (w.open_access && w.open_access.oa_url) || '',
     landing: (w.primary_location && w.primary_location.landing_page_url) || (doi ? 'https://doi.org/' + doi : ''),
     abstract: abstractText(w.abstract_inverted_index), src: 'OpenAlex'
   };
 }
-
 function normCR(w) {
   const doi = (w.DOI || '').toLowerCase();
   const t = ((w.title || [])[0] || '(tanpa judul)').replace(/<[^>]+>/g, '');
+  const pg = String(w.page || '').split('-');
+  const fp = pg[0] || '', lp = pg[1] || '';
   return {
     id: 'cr:' + doi, doi, title: t,
     year: w.issued && w.issued['date-parts'] && w.issued['date-parts'][0] && w.issued['date-parts'][0][0],
     type: 'article', cites: w['is-referenced-by-count'] || 0,
     retracted: /^(retraction|retracted|withdrawn)/i.test(t),
-    authors: (w.author || []).map(a => [a.given, a.family].filter(Boolean).join(' ')).filter(Boolean),
-    venue: (w['container-title'] || [])[0] || '', venueType: 'journal', doaj: false, oaUrl: '',
-    landing: w.URL || ('https://doi.org/' + doi),
+    au: (w.author || []).map(a => ({ g: a.given || '', f: a.family || a.name || '' })).filter(a => a.f),
+    venue: (w['container-title'] || [])[0] || '', venueType: 'journal', doaj: false,
+    vol: w.volume || '', issue: w.issue || '', fp, lp, pages: fp ? (lp ? fp + '\u2013' + lp : fp) : '',
+    oaUrl: '', landing: w.URL || ('https://doi.org/' + doi),
     abstract: (w.abstract || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(), src: 'Crossref'
   };
 }
+Object.keys(saved).forEach(k => { const r = saved[k]; if (!r || !r.au) delete saved[k]; });
 
 function trust(r) {
   if (r.retracted) return { k: 'bad', l: 'Ditarik', t: 'Artikel ini ditarik atau berupa pemberitahuan penarikan. Jangan dijadikan rujukan.' };
   if (r.type === 'preprint' || r.venueType === 'repository') return { k: 'warn', l: 'Hati-hati', t: 'Preprint atau arsip repositori, belum tentu lolos peer review.' };
   if (!r.doi) return { k: 'warn', l: 'Hati-hati', t: 'Tidak ada DOI, jadi sulit diverifikasi.' };
-  if (r.doaj) return { k: 'good', l: 'Terverifikasi', t: 'Ber-DOI, terbit di jurnal terdaftar DOAJ, tidak ditandai ditarik.' };
+  if (r.doaj) return { k: 'good', l: 'Terverifikasi', t: 'Ber-DOI, terbit di jurnal terdaftar DOAJ, dan tidak ditandai ditarik.' };
   return { k: 'ok', l: 'Ber-DOI', t: 'Terbit di jurnal dan tidak ditandai ditarik. Status DOAJ belum diketahui.' };
 }
 
-async function openAlex(q, page) {
-  const f = [];
-  if (prefs.field) f.push('primary_topic.field.id:11');
+async function openAlex(page) {
+  const f = [], p = new URLSearchParams({ 'per-page': String(PAGE), page: String(page), select: SEL });
+  const sp = st.special;
+  if (sp) {
+    f.push(({ related: 'related_to:', cites: 'cites:', refs: 'cited_by:' })[sp.kind] + sp.id);
+  } else {
+    const q = st.q.replace(/[,|:]/g, ' ').trim();
+    if (prefs.scope === 'all') p.set('search', st.q);
+    else f.push((prefs.scope === 'title' ? 'title.search:' : 'title_and_abstract.search:') + q);
+    if (prefs.field) f.push('primary_topic.field.id:11');
+    if (prefs.lang !== 'all') f.push('language:' + prefs.lang);
+  }
   if (prefs.hide) f.push('is_retracted:false');
   if (prefs.oa) f.push('open_access.is_oa:true');
+  if (prefs.doaj) f.push('primary_location.source.is_in_doaj:true');
   if (prefs.from) f.push('from_publication_date:' + prefs.from + '-01-01');
-  if (prefs.nopre) f.push('type:article|review');
-  const p = new URLSearchParams({ search: q, 'per-page': String(PAGE), page: String(page), select: SEL });
+  if (prefs.type === 'article') f.push('type:article|review');
+  if (prefs.type === 'review') f.push('type:review');
   if (f.length) p.set('filter', f.join(','));
-  if (prefs.sort === 'cited') p.set('sort', 'cited_by_count:desc');
-  if (prefs.sort === 'new') p.set('sort', 'publication_date:desc');
+  if (prefs.sort === 'cited' || (sp && prefs.sort === 'relevance')) p.set('sort', 'cited_by_count:desc');
+  else if (prefs.sort === 'new') p.set('sort', 'publication_date:desc');
+  else if (!sp && prefs.scope !== 'all') p.set('sort', 'relevance_score:desc');
   const r = await fetch('https://api.openalex.org/works?' + p);
   if (!r.ok) throw new Error('OpenAlex ' + r.status);
   const j = await r.json();
   return { items: (j.results || []).map(normOA), total: (j.meta && j.meta.count) || 0 };
 }
-
-async function crossref(q, page) {
+async function crossref(page) {
   const p = new URLSearchParams({
-    'query.bibliographic': q, rows: String(PAGE), offset: String((page - 1) * PAGE),
-    select: 'DOI,title,author,issued,container-title,is-referenced-by-count,URL,abstract',
+    'query.bibliographic': st.q, rows: String(PAGE), offset: String((page - 1) * PAGE),
+    select: 'DOI,title,author,issued,container-title,is-referenced-by-count,URL,abstract,volume,issue,page',
     filter: 'type:journal-article' + (prefs.from ? ',from-pub-date:' + prefs.from : '')
   });
   if (prefs.sort === 'cited') { p.set('sort', 'is-referenced-by-count'); p.set('order', 'desc'); }
@@ -248,15 +422,39 @@ async function crossref(q, page) {
   const j = await r.json();
   return { items: ((j.message && j.message.items) || []).map(normCR), total: 0 };
 }
+async function lookupDoi(doi) {
+  try {
+    const r = await fetch('https://api.openalex.org/works/doi:' + encodeURI(doi) + '?select=' + SEL);
+    if (r.ok) return normOA(await r.json());
+  } catch (e) {}
+  const r = await fetch('https://api.crossref.org/works/' + encodeURIComponent(doi));
+  if (!r.ok) throw new Error('nf');
+  return normCR((await r.json()).message);
+}
+
+function pushHist(q) {
+  hist = [q].concat(hist.filter(x => x !== q)).slice(0, 8);
+  store('jt2-hist', hist);
+}
 
 async function search(reset) {
   if (st.busy) return;
-  const q = $('#q').value.trim();
-  if (reset && !q) return;
-  if (reset) { st.page = 1; st.items = []; st.total = 0; st.q = q; st.done = false; } else st.page++;
-  st.tab = 'cari'; st.busy = true; st.err = ''; render();
-  const jobs = [openAlex(st.q, st.page)];
-  if (prefs.cr) jobs.push(crossref(st.q, st.page));
+  if (reset) {
+    const q = $('#q').value.trim();
+    if (!q && !st.special) return;
+    if (!st.special) { st.q = q; pushHist(q); }
+    st.page = 1; st.items = []; st.total = 0; st.done = false; st.err = ''; st.doi = false; st.mode = 'results';
+    window.scrollTo(0, 0);
+  } else st.page++;
+  st.tab = 'cari'; st.busy = true; render();
+  const m = !st.special && DOI_RE.exec(st.q);
+  if (m) {
+    try { const rec = await lookupDoi(m[1].replace(/[).,;]+$/, '')); st.items = [rec]; st.total = 1; st.doi = true; }
+    catch (e) { st.err = 'DOI tidak ditemukan di OpenAlex maupun Crossref. Periksa lagi penulisannya. '; }
+    st.more = false; st.done = true; st.busy = false; render(); return;
+  }
+  const jobs = [openAlex(st.page)];
+  if (prefs.cr && !st.special) jobs.push(crossref(st.page));
   const res = await Promise.allSettled(jobs);
   let fresh = [];
   res.forEach((r, i) => {
@@ -270,53 +468,70 @@ async function search(reset) {
   st.done = true; st.busy = false; render();
 }
 
-function citeText(r) {
-  const a = r.authors.length ? r.authors.slice(0, 6).join(', ') + (r.authors.length > 6 ? ', dkk.' : '') : 'Anonim';
-  return a + ' (' + (r.year || 't.t.') + '). ' + r.title + '. ' + (r.venue ? r.venue + '. ' : '') + (r.doi ? 'https://doi.org/' + r.doi : r.landing);
+function nFilters() {
+  let n = 0;
+  if (!prefs.field) n++; if (!prefs.hide) n++; if (prefs.oa) n++; if (prefs.doaj) n++;
+  if (prefs.type !== 'all') n++; if (prefs.lang !== 'all') n++; if (prefs.scope !== 'all') n++;
+  if (prefs.from) n++; if (prefs.cr) n++;
+  return n;
 }
 
 function card(r) {
   const t = trust(r), k = key(r);
-  const au = r.authors.length ? r.authors.slice(0, 3).join(', ') + (r.authors.length > 3 ? ' dkk.' : '') : 'Penulis tidak tercantum';
+  const au = r.au.length ? r.au.slice(0, 3).map(a => a.g ? a.g + ' ' + a.f : a.f).join(', ') + (r.au.length > 3 ? ' dkk.' : '') : 'Penulis tidak tercantum';
   const isSaved = !!saved[k];
   return `<article class="res ${t.k}" data-k="${esc(k)}">
-    <h3><a href="${esc(r.landing)}" target="_blank" rel="noopener">${esc(r.title)}</a></h3>
+    <h3><button type="button" data-a="detail">${esc(r.title)}</button></h3>
     <p class="meta"><span>${esc(au)}</span><span>${esc(r.year || 'tahun tidak diketahui')}</span>${r.venue ? `<i>${esc(r.venue)}</i>` : ''}</p>
-    <p class="trust"><b>${t.l}</b>${esc(t.t)}</p>
-    <p class="tags">${r.doaj ? '<span>Jurnal DOAJ</span>' : ''}${r.oaUrl ? '<span>Open access</span>' : ''}<span>${r.cites} sitasi</span>${r.doi ? `<span>DOI ${esc(r.doi)}</span>` : ''}<span>${esc(r.src)}</span></p>
+    <p class="status"><b>${t.l}</b>${r.oaUrl ? '<span>Open access</span>' : ''}${r.doaj ? '<span>DOAJ</span>' : ''}<span>${r.cites} sitasi</span></p>
     <div class="acts">
-      <button type="button" data-a="abs">Abstrak</button>
-      ${r.oaUrl ? `<a href="${esc(r.oaUrl)}" target="_blank" rel="noopener">Baca gratis</a>` : ''}
-      ${r.doi ? '<button type="button" data-a="doi">Cek DOI</button>' : ''}
-      <button type="button" data-a="cite">Salin sitasi</button>
+      <button type="button" data-a="cite">Sitasi</button>
       <button type="button" data-a="save" class="${isSaved ? 'on' : ''}">${isSaved ? 'Tersimpan' : 'Simpan'}</button>
+      <button type="button" data-a="detail">Detail</button>
     </div>
-    <div class="box" data-box="abs" hidden></div>
-    <div class="box v" data-box="doi" hidden></div>
   </article>`;
 }
 
 function render() {
   const out = $('#out');
+  const n = Object.keys(saved).length;
   $('#go').disabled = st.busy;
-  $('#t-cari').setAttribute('aria-selected', st.tab === 'cari');
-  $('#t-simpan').setAttribute('aria-selected', st.tab === 'simpan');
-  $('#t-simpan').textContent = 'Tersimpan (' + Object.keys(saved).length + ')';
+  $('#n-cari').setAttribute('aria-selected', st.tab === 'cari');
+  $('#n-simpan').setAttribute('aria-selected', st.tab === 'simpan');
+  $('#n-simpan-t').textContent = 'Tersimpan' + (n ? ' (' + n + ')' : '');
+  $('#searchbar').hidden = st.tab === 'simpan';
+  $('#clr').hidden = !$('#q').value;
   let h = '';
   if (st.tab === 'simpan') {
-    const list = Object.values(saved);
-    h = list.length ? list.map(card).join('') : '<div class="empty"><p>Belum ada artikel tersimpan.</p><p>Tekan Simpan pada artikel yang ingin kamu baca lagi. Daftar ini tersimpan di HP dan tetap ada saat offline.</p></div>';
+    const list = Object.values(saved).reverse();
+    h = '<h2 class="sec">Artikel tersimpan</h2>';
+    if (!list.length) h += '<div class="empty">Belum ada artikel tersimpan. Tekan Simpan pada artikel yang ingin kamu baca lagi. Daftar ini tersimpan di HP dan tetap bisa dibuka saat offline.</div>';
+    else h += '<div class="acts" style="margin-bottom:6px"><button type="button" data-a="export">Ekspor daftar pustaka</button><button type="button" data-a="clearsaved">Hapus semua</button></div>' + list.map(card).join('');
+    out.innerHTML = h; return;
+  }
+  if (st.mode === 'home') {
+    h = `<section class="hero"><h1>Temukan jurnal pertanian yang bisa dipercaya</h1>
+      <p class="lede">Cari topik atau tempel DOI. Setiap artikel diberi penanda validitas, dan sitasinya siap disalin.</p>
+      <ul class="legend"><li><i style="background:var(--good)"></i>Terverifikasi</li><li><i style="background:var(--ok)"></i>Ber-DOI</li><li><i style="background:var(--warn)"></i>Hati-hati</li><li><i style="background:var(--bad)"></i>Ditarik</li></ul></section>
+      <h2 class="sec">Topik proteksi tanaman</h2>
+      <div class="tiles">${TOPICS.map((t, i) => `<button type="button" class="tile" data-a="topic" data-i="${i}"><b>${esc(t.l)}</b><span>${esc(t.d)}</span></button>`).join('')}</div>`;
+    if (hist.length) h += `<h2 class="sec">Pencarian terakhir <button type="button" data-a="clearhist">Hapus</button></h2><div class="hist">${hist.map((q, i) => `<button type="button" class="pill" data-a="hist" data-i="${i}">${esc(q)}</button>`).join('')}</div>`;
     out.innerHTML = h; return;
   }
   if (st.err) h += `<div class="err">${esc(st.err)}Cek koneksi internet lalu coba lagi.</div>`;
-  if (!st.done && !st.busy) {
-    h += '<div class="empty"><p>Ketik topik atau pilih salah satu topik cepat di atas. Pencarian bisa memakai bahasa Indonesia atau Inggris, tetapi sebagian besar jurnal ditulis dalam bahasa Inggris.</p><p>Garis di sisi kiri tiap artikel menunjukkan tingkat kepercayaan: hijau terverifikasi, biru ber-DOI, kuning hati-hati, merah ditarik.</p></div>';
-  } else {
-    if (st.done && !st.items.length && !st.busy) h += '<div class="empty"><p>Tidak ada hasil. Coba kata kunci lebih umum, atau matikan batasan bidang di Saring hasil.</p></div>';
-    if (st.items.length) h += `<p class="count">${st.total ? st.total.toLocaleString('id-ID') + ' artikel ditemukan, ' : ''}${st.items.length} ditampilkan</p>` + st.items.map(card).join('');
-    if (st.busy) h += '<p class="spin">Mencari...</p>';
-    else if (st.more) h += '<button type="button" class="more-btn" id="more">Muat lebih banyak</button>';
+  if (st.special) {
+    const lab = { related: 'Artikel serupa dengan', cites: 'Artikel yang mengutip', refs: 'Referensi dari' }[st.special.kind];
+    h += `<div class="banner"><span>${lab}: <b>${esc(st.special.title)}</b></span><button type="button" data-a="endspecial">Tutup</button></div>`;
   }
+  if (st.doi) h += '<div class="banner"><span>Hasil pencarian DOI</span></div>';
+  const nf = nFilters();
+  h += `<div class="bar"><span class="count">${st.items.length ? (st.total > 1 ? st.total.toLocaleString('id-ID') + ' artikel, ' + st.items.length + ' ditampilkan' : st.items.length + ' artikel') : ''}</span>
+    <button type="button" class="fbtn" data-a="filter"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>Saring${nf ? ' (' + nf + ')' : ''}</button></div>`;
+  if (!st.doi) h += `<div class="sorts" role="group" aria-label="Urutan">${SORTS.map(s => `<button type="button" data-a="sort" data-s="${s[0]}" aria-pressed="${prefs.sort === s[0]}">${s[1]}</button>`).join('')}</div>`;
+  if (st.done && !st.items.length && !st.busy && !st.err) h += '<div class="empty">Tidak ada hasil. Coba kata kunci yang lebih umum, atau longgarkan pilihan di Saring.</div>';
+  h += st.items.map(card).join('');
+  if (st.busy) h += '<p class="spin">Mencari\u2026</p>';
+  else if (st.more) h += '<button type="button" class="more-btn" data-a="more">Muat lebih banyak</button>';
   out.innerHTML = h;
 }
 
@@ -325,8 +540,89 @@ function toast(m) {
   clearTimeout(toast.id); toast.id = setTimeout(() => { t.hidden = true; }, 2200);
 }
 
-async function verify(r, box) {
-  box.hidden = false; box.textContent = 'Memeriksa DOI di Crossref...';
+/* ---------- lembar bawah ---------- */
+const sheet = $('#sheet'), scrim = $('#scrim');
+function openSheet(html) {
+  sheet.innerHTML = '<div class="grab"></div>' + html;
+  if (!sheetOpen) {
+    sheetOpen = true; sheet.hidden = false; scrim.hidden = false;
+    try { history.pushState({ sheet: 1 }, ''); } catch (e) {}
+    requestAnimationFrame(() => sheet.classList.add('up'));
+  }
+  sheet.scrollTop = 0;
+}
+function hideSheet() {
+  sheetOpen = false; sheet.classList.remove('up'); scrim.hidden = true;
+  setTimeout(() => { if (!sheetOpen) sheet.hidden = true; }, 190);
+}
+function closeSheet() {
+  if (!sheetOpen) return;
+  if (history.state && history.state.sheet) { try { history.back(); return; } catch (e) {} }
+  hideSheet();
+}
+window.addEventListener('popstate', () => { if (sheetOpen) hideSheet(); });
+
+function detailSheet(r) {
+  sheetRec = r; sheetMode = { kind: 'detail' };
+  const t = trust(r), k = key(r);
+  const au = r.au.length ? r.au.slice(0, 8).map(a => a.g ? a.g + ' ' + a.f : a.f).join(', ') + (r.au.length > 8 ? ' dkk.' : '') : 'Penulis tidak tercantum';
+  const net = r.id && r.id.indexOf('cr:') !== 0;
+  openSheet(`<div class="sh-h"><h2>Detail</h2><button class="x" type="button" data-a="close">Tutup</button></div>
+    <h3 class="dt">${esc(r.title)}</h3>
+    <p class="meta"><span>${esc(au)}</span><span>${esc(r.year || '')}</span>${r.venue ? `<i>${esc(r.venue)}</i>` : ''}</p>
+    <div class="tr ${t.k}"><b>${t.l}</b><span>${esc(t.t)}</span></div>
+    <p class="muted">${r.cites} sitasi${r.doi ? '. DOI ' + esc(r.doi) : ''}. Sumber data: ${esc(r.src)}.</p>
+    <h4>Abstrak</h4>
+    <p class="abs">${r.abstract ? esc(r.abstract) : '<span class="muted">Abstrak tidak tersedia dari sumber ini. Buka artikelnya untuk membaca abstrak.</span>'}</p>
+    <h4>Buka dan periksa</h4>
+    <div class="acts">
+      ${r.oaUrl ? `<a href="${esc(r.oaUrl)}" target="_blank" rel="noopener">Baca gratis</a>` : ''}
+      ${r.landing ? `<a href="${esc(r.landing)}" target="_blank" rel="noopener">Buka di penerbit</a>` : ''}
+      ${r.doi ? '<button type="button" data-a="doi">Cek DOI</button>' : ''}
+      <button type="button" data-a="share">Bagikan</button>
+    </div>
+    <div class="box" data-box="doi" hidden></div>
+    ${net ? `<h4>Telusuri lebih jauh</h4><div class="acts"><button type="button" data-a="related">Artikel serupa</button><button type="button" data-a="cites">Dikutip oleh</button><button type="button" data-a="refs">Referensi</button></div>` : ''}
+    <div class="foot"><button type="button" class="go" data-a="cite">Buat sitasi</button><button type="button" data-a="save" data-k="${esc(k)}">${saved[k] ? 'Tersimpan' : 'Simpan'}</button></div>`);
+}
+
+function sortedSaved() {
+  return Object.values(saved).sort((a, b) => ((a.au[0] && a.au[0].f) || a.title).localeCompare((b.au[0] && b.au[0].f) || b.title) || (a.year || 0) - (b.year || 0));
+}
+function citeSheet(r, bulk) {
+  sheetRec = r || sheetRec; sheetMode = { kind: 'cite', bulk: !!bulk };
+  const list = bulk ? (curFmt === 'ieee' ? Object.values(saved).reverse() : sortedSaved()) : [sheetRec];
+  const pieces = list.map((x, i) => citation(x, curFmt, i + 1));
+  const html = pieces.map(p => p.code ? p.html : '<p>' + p.html + '</p>').join('');
+  const plain = pieces.map(p => p.plain).join('\n\n');
+  curOut = { html, plain };
+  const ext = curFmt === 'bibtex' ? '.bib' : curFmt === 'ris' ? '.ris' : '.txt';
+  openSheet(`<div class="sh-h"><h2>${bulk ? 'Daftar pustaka (' + list.length + ')' : 'Sitasi'}</h2><button class="x" type="button" data-a="close">Tutup</button></div>
+    <div class="fmts" role="group" aria-label="Format sitasi">${FORMATS.map(f => `<button type="button" data-a="fmt" data-f="${f[0]}" aria-pressed="${curFmt === f[0]}">${f[1]}</button>`).join('')}</div>
+    <div class="box cite">${html || '<span class="muted">Belum ada artikel.</span>'}</div>
+    <p class="muted" style="margin:10px 0 0">Nama penulis diformat otomatis dari data sumber. Periksa nama majemuk dan huruf kapital judul sebelum dikutip.</p>
+    <div class="foot"><button type="button" class="go" data-a="copycite">Salin</button><button type="button" data-a="dl" data-ext="${ext}">Unduh ${ext}</button></div>`);
+}
+
+function filterSheet() {
+  sheetMode = { kind: 'filter' };
+  const opt = (v, cur, l) => `<option value="${v}"${v === cur ? ' selected' : ''}>${l}</option>`;
+  openSheet(`<div class="sh-h"><h2>Saring hasil</h2><button class="x" type="button" data-a="close">Tutup</button></div>
+    <label class="opt"><span>Cari di<small>Judul saja lebih tepat, tetapi hasilnya lebih sedikit</small></span><select id="f-scope">${opt('all', prefs.scope, 'Semua teks')}${opt('ta', prefs.scope, 'Judul dan abstrak')}${opt('title', prefs.scope, 'Judul saja')}</select></label>
+    <label class="opt"><span>Bahasa artikel</span><select id="f-lang">${opt('all', prefs.lang, 'Semua')}${opt('id', prefs.lang, 'Indonesia')}${opt('en', prefs.lang, 'Inggris')}</select></label>
+    <label class="opt"><span>Jenis artikel</span><select id="f-type">${opt('all', prefs.type, 'Semua')}${opt('article', prefs.type, 'Artikel dan review (tanpa preprint)')}${opt('review', prefs.type, 'Review saja')}</select></label>
+    <label class="opt"><span>Terbit sejak tahun</span><input type="number" id="f-from" inputmode="numeric" min="1900" max="2100" placeholder="2020" value="${esc(prefs.from)}"></label>
+    <label class="opt"><span>Hanya bidang pertanian dan biologi<small>Mengurangi hasil dari bidang lain</small></span><input type="checkbox" id="f-field"${prefs.field ? ' checked' : ''}></label>
+    <label class="opt"><span>Hanya jurnal terdaftar DOAJ<small>Jurnal open access yang terkurasi</small></span><input type="checkbox" id="f-doaj"${prefs.doaj ? ' checked' : ''}></label>
+    <label class="opt"><span>Hanya yang bisa dibaca gratis</span><input type="checkbox" id="f-oa"${prefs.oa ? ' checked' : ''}></label>
+    <label class="opt"><span>Sembunyikan artikel yang ditarik</span><input type="checkbox" id="f-hide"${prefs.hide ? ' checked' : ''}></label>
+    <label class="opt"><span>Tambahkan hasil Crossref<small>Lebih luas, tetapi lebih banyak yang kurang relevan</small></span><input type="checkbox" id="f-cr"${prefs.cr ? ' checked' : ''}></label>
+    <div class="foot"><button type="button" data-a="resetfilter">Atur ulang</button><button type="button" class="go" data-a="applyfilter">Terapkan</button></div>`);
+}
+
+async function verify(r) {
+  const box = $('#sheet [data-box=doi]'); if (!box) return;
+  box.hidden = false; box.textContent = 'Memeriksa DOI di Crossref\u2026';
   try {
     const res = await fetch('https://api.crossref.org/works/' + encodeURIComponent(r.doi));
     if (res.status === 404) { box.innerHTML = '<b>DOI tidak ditemukan di Crossref.</b> Bisa jadi terdaftar di agen DOI lain, atau DOI-nya keliru. Coba buka doi.org untuk memastikan.'; return; }
@@ -335,7 +631,7 @@ async function verify(r, box) {
     const upd = m['updated-by'] || [];
     const bad = upd.filter(u => /retraction|withdrawal|removal/i.test(u.type || ''));
     const concern = upd.filter(u => /concern/i.test(u.type || ''));
-    let s = `DOI terdaftar di Crossref. Penerbit: ${esc(m.publisher || 'tidak disebutkan')}.`;
+    let s = 'DOI terdaftar di Crossref. Penerbit: ' + esc(m.publisher || 'tidak disebutkan') + '.';
     if (bad.length) s += ' <b style="color:var(--bad)">Ada catatan penarikan resmi untuk artikel ini.</b>';
     else if (concern.length) s += ' <b style="color:var(--warn)">Ada pernyataan kekhawatiran (expression of concern) dari penerbit.</b>';
     else s += ' Tidak ada catatan penarikan di Crossref.';
@@ -343,59 +639,84 @@ async function verify(r, box) {
   } catch (e) { box.textContent = 'Gagal memeriksa. Cek koneksi internet lalu coba lagi.'; }
 }
 
-async function copy(text) {
-  try { await navigator.clipboard.writeText(text); toast('Sitasi disalin'); }
-  catch (e) { window.prompt('Salin sitasi ini:', text); }
+async function copyRich(html, plain) {
+  try {
+    if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+      await navigator.clipboard.write([new ClipboardItem({ 'text/html': new Blob([html], { type: 'text/html' }), 'text/plain': new Blob([plain], { type: 'text/plain' }) })]);
+      toast('Sitasi disalin'); return;
+    }
+  } catch (e) {}
+  try { await navigator.clipboard.writeText(plain); toast('Sitasi disalin'); }
+  catch (e) { window.prompt('Salin sitasi ini:', plain); }
+}
+function download(name, text) {
+  const b = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const u = URL.createObjectURL(b), a = document.createElement('a');
+  a.href = u; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(u), 2000);
+}
+function readFilters() {
+  const g = id => $('#' + id);
+  prefs.scope = g('f-scope').value; prefs.lang = g('f-lang').value; prefs.type = g('f-type').value;
+  prefs.from = g('f-from').value.trim(); prefs.field = g('f-field').checked; prefs.doaj = g('f-doaj').checked;
+  prefs.oa = g('f-oa').checked; prefs.hide = g('f-hide').checked; prefs.cr = g('f-cr').checked;
+  store('jt2-prefs', prefs);
+}
+function startSpecial(kind, r) {
+  st.special = { kind, id: shortId(r.id), title: r.title };
+  closeSheet();
+  setTimeout(() => { st.tab = 'cari'; search(true); }, 60);
 }
 
-$('#out').addEventListener('click', e => {
-  if (e.target.id === 'more') { search(false); return; }
-  const b = e.target.closest('button[data-a]'); if (!b) return;
-  const art = b.closest('article'), k = art.dataset.k, r = find(k); if (!r) return;
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-a]'); if (!b) return;
   const a = b.dataset.a;
-  if (a === 'abs') {
-    const box = art.querySelector('[data-box=abs]');
-    box.textContent = r.abstract || 'Abstrak tidak tersedia dari sumber ini. Buka artikelnya untuk membaca abstrak.';
-    box.hidden = !box.hidden;
-  } else if (a === 'doi') verify(r, art.querySelector('[data-box=doi]'));
-  else if (a === 'cite') copy(citeText(r));
-  else if (a === 'save') {
-    if (saved[k]) { delete saved[k]; toast('Dihapus dari tersimpan'); } else { saved[k] = r; toast('Tersimpan'); }
-    store('jt-saved', saved);
-    if (st.tab === 'simpan') render();
-    else { b.classList.toggle('on', !!saved[k]); b.textContent = saved[k] ? 'Tersimpan' : 'Simpan'; $('#t-simpan').textContent = 'Tersimpan (' + Object.keys(saved).length + ')'; }
+  const host = b.closest('[data-k]');
+  const r = host ? find(host.dataset.k) : sheetRec;
+  switch (a) {
+    case 'tab-cari': st.tab = 'cari'; render(); break;
+    case 'tab-simpan': st.tab = 'simpan'; render(); window.scrollTo(0, 0); break;
+    case 'topic': $('#q').value = TOPICS[+b.dataset.i].q; st.special = null; search(true); break;
+    case 'hist': $('#q').value = hist[+b.dataset.i]; st.special = null; search(true); break;
+    case 'clearhist': hist = []; store('jt2-hist', hist); render(); break;
+    case 'more': search(false); break;
+    case 'sort': prefs.sort = b.dataset.s; store('jt2-prefs', prefs); search(true); break;
+    case 'filter': filterSheet(); break;
+    case 'applyfilter': readFilters(); closeSheet(); if (st.q || st.special) setTimeout(() => search(true), 60); else render(); break;
+    case 'resetfilter': Object.assign(prefs, { field: true, hide: true, oa: false, doaj: false, type: 'all', lang: 'all', scope: 'all', from: '', cr: false }); store('jt2-prefs', prefs); filterSheet(); break;
+    case 'endspecial': st.special = null; st.mode = st.q ? 'results' : 'home'; if (st.q) search(true); else render(); break;
+    case 'detail': if (r) detailSheet(r); break;
+    case 'cite': if (r) citeSheet(r, false); break;
+    case 'fmt': curFmt = b.dataset.f; store('jt2-fmt', curFmt); citeSheet(null, sheetMode && sheetMode.bulk); break;
+    case 'copycite': copyRich(curOut.html, curOut.plain); break;
+    case 'dl': download((sheetMode && sheetMode.bulk ? 'daftar-pustaka' : 'sitasi') + b.dataset.ext, curOut.plain); break;
+    case 'export': citeSheet(null, true); break;
+    case 'clearsaved': if (confirm('Hapus semua artikel tersimpan?')) { saved = {}; store('jt2-saved', saved); render(); } break;
+    case 'save': {
+      if (!r) break;
+      const k = key(r);
+      if (saved[k]) { delete saved[k]; toast('Dihapus dari tersimpan'); } else { saved[k] = r; toast('Tersimpan'); }
+      store('jt2-saved', saved);
+      if (b.closest('#sheet')) b.textContent = saved[k] ? 'Tersimpan' : 'Simpan';
+      render(); break;
+    }
+    case 'doi': if (r) verify(r); break;
+    case 'share': if (r) { const u = linkOf(r); if (navigator.share) navigator.share({ title: r.title, url: u }).catch(() => {}); else copyRich(esc(u), u); } break;
+    case 'related': case 'cites': case 'refs': if (r) startSpecial(a, r); break;
+    case 'close': closeSheet(); break;
   }
 });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
 
-$('#sf').addEventListener('submit', e => { e.preventDefault(); search(true); });
-$('#t-cari').addEventListener('click', () => { st.tab = 'cari'; render(); });
-$('#t-simpan').addEventListener('click', () => { st.tab = 'simpan'; render(); });
-
-$('#chips').innerHTML = PRESETS.map((p, i) => `<button type="button" class="chip" data-i="${i}">${esc(p[0])}</button>`).join('');
-$('#chips').addEventListener('click', e => {
-  const b = e.target.closest('.chip'); if (!b) return;
-  $('#q').value = PRESETS[+b.dataset.i][1]; search(true);
-});
-
-const bind = (id, name, isBool) => {
-  const el = $(id);
-  if (isBool) el.checked = !!prefs[name]; else el.value = prefs[name];
-  el.addEventListener('change', () => {
-    prefs[name] = isBool ? el.checked : el.value.trim();
-    store('jt-prefs', prefs);
-    if (st.q) { $('#q').value = $('#q').value || st.q; search(true); }
-  });
-};
-bind('#f-field', 'field', true); bind('#f-hide', 'hide', true); bind('#f-oa', 'oa', true);
-bind('#f-nopre', 'nopre', true); bind('#f-cr', 'cr', true);
-bind('#f-from', 'from', false); bind('#f-sort', 'sort', false);
+$('#sf').addEventListener('submit', e => { e.preventDefault(); st.special = null; search(true); });
+$('#q').addEventListener('input', () => { $('#clr').hidden = !$('#q').value; });
+$('#clr').addEventListener('click', () => { $('#q').value = ''; $('#clr').hidden = true; $('#q').focus(); });
 
 let deferred;
 window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferred = e; $('#install').style.display = 'block'; });
 $('#install').addEventListener('click', async () => {
   if (!deferred) return; deferred.prompt(); await deferred.userChoice; deferred = null; $('#install').style.display = 'none';
 });
-
 if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }
